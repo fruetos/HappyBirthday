@@ -21,6 +21,7 @@
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/b509289180.js" crossorigin="anonymous"></script>
 
  
   <link href="assets/css/style.css" rel="stylesheet">
@@ -35,6 +36,32 @@
     <div class="container">
       <div class="hero-content">
         <h1><span class="typed" data-typed-items="Happy Birthday Colay!"></span></h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="music-container">
+    <div class="music-player">
+      <nav>
+        <div class="circle">
+          <i class="fa-solid fa-angle-left"></i>
+        </div>
+        <div class="circle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </nav>
+      <img src="assets/img/urpic.jpg" class="music-img">
+      <h1>Snooze</h1>
+      <p>SZA</p>
+      <audio id="song">
+        <source src="assets/music/sza-snooze.mp3" type="audio/mpeg">
+      </audio>
+      <input type="range" value="0" id="progress">
+
+      <div class="controls">
+        <div><i class="fa-solid fa-backward"></i></div>
+        <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+        <div><i class="fa-solid fa-forward"></i></div>
       </div>
     </div>
   </div>
@@ -54,11 +81,12 @@
             </div>
           </div>
 
+
           <div class="col-lg-7">
             <div class="about-descr">
 
               <p class="p-heading">Dear Colay,</p>
-              <p class="separator">Happy 23rd birthday Colay! Sana masaya ka today, ang layo na ng narating mo at naniniwala ako na malayo pa ang mararating mo, basta always ka lang magtiwala sa sarili mo and don't let anybody's words bring you down. Basta lagi mo lang tatandaan na nandito lang ako para sayo through everything. I know nawweird-an ka sa pagiging sweet ko kaya I'll make it short so here goes hehe. Alam ko na we both agreed on no expectations and I truly respect that, but that doesn't change the fact na I genuinely love you at alam ko na ramdam mo yun, sana kahit ganito yung nararamdaman ko sayo is hindi lumayo ang loob mo sakin. Believe me, the last thing that I wanna do is lose you all over again. I'll be happy with just getting to hug you and hold your hand while we talk, drive or even if we're doing nothing. As long as ikaw ang kasama ko sobrang saya ko na kasi your presence gives me peace talaga other than being alone. Sana magkasama tayo habang binabasa mo to sa mismong bday mo HAHAHAHAHA. Pero if ever di tayo magkasama sa mismong bday mo, pakita ko nalang sayo to sa pagkikita natin hehe. Pero anyways, ingat ka always and good luck sa thesis and future mo! I know you're gonna ace that shit, I believe in you always, basta lagi mo lang tatandaan na if ever you need to unwind, sabihan mo lang ako and we'll set a convenient date for the both of us, that's a promise. Got a lot more things to say pero It's better to say it in person nalang.</p>
+              <p class="separator">Happy 23rd birthday Colay! Sana masaya ka today, ang layo na ng narating mo at naniniwala ako na malayo pa ang mararating mo, basta always ka lang magtiwala sa sarili mo and don't let anybody's words bring you down. Basta lagi mo lang tatandaan na nandito lang ako para sayo through everything. I know nawweird-an ka sa pagiging sweet ko kaya I'll make it short so here goes hehe. Alam ko na we both agreed on no expectations and I truly respect that, but that doesn't change the fact na I genuinely love you at alam ko na ramdam mo yun, sana kahit ganito yung nararamdaman ko sayo is hindi lumayo ang loob mo sakin. Believe me, the last thing that I wanna do is lose you all over again. I'll be happy with just getting to hug you and hold your hand while we talk, drive or even if we're doing nothing. As long as ikaw ang kasama ko sobrang saya ko na kasi your presence gives me peace talaga other than being alone. If there's one thing I'm sure of, it's that I know I'll never love anyone as much as I love you and alam ko sa sarili ko na hinding hindi magbabago yan. Pero anyways, ingat ka always and good luck sa thesis and future mo! I know you're gonna ace that shit, I believe in you always, basta lagi mo lang tatandaan na if ever you need to unwind, sabihan mo lang ako and we'll set a convenient date for the both of us, that's a promise. </p>
 
               <p>Yours truly,
                 <br>Jeremie
@@ -73,7 +101,43 @@
 
  
   <script src="assets/js/main.js"></script>
+    <script>
+      let progress = document.querySelector('#progress');
+      let song = document.querySelector('#song');
+      let ctrlIcon = document.querySelector('#ctrlIcon');
 
+      song.onloadedmetadata = function(){
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+      }
+
+      function playPause(){
+        if(ctrlIcon.classList.contains("fa-pause")){
+          song.pause();
+          ctrlIcon.classList.remove("fa-pause");
+          ctrlIcon.classList.add("fa-play");
+      }
+      else{
+        song.play();
+        ctrlIcon.classList.add("fa-pause");
+        ctrlIcon.classList.remove("fa-play");
+      }
+  }
+
+  if(song.play()){
+    setInterval(()=>{
+      progress.value = song.currentTime;
+    },500);
+  }
+
+  progress.onchange = function(){
+    song.play();
+    song.currentTime = progress.value;
+    ctrlIcon.classList.add("fa-pause");
+    ctrlIcon.classList.remove("fa-play");
+  }
+
+    </script>
 </body>
 
 </html>
